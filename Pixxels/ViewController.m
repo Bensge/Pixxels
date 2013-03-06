@@ -6,6 +6,8 @@
 //  Copyright (c) 2013 Benno Krauss. All rights reserved.
 //
 
+#define PIXEL_SIZE 8 //Play around with this value to make the pixels bigger / smaller. Smallest possible value is 1
+
 #import "ViewController.h"
 
 @interface ViewController ()
@@ -19,10 +21,10 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     CGSize screenSize = [[UIScreen mainScreen] bounds].size;
-    for (int i = 0; i < screenSize.height; i++){
-        NSLog(@"%i of %i",i,(int)screenSize.height);
+    for (int i = 0; i < (screenSize.height / PIXEL_SIZE); i++){
+        NSLog(@"%i of %i",i + 1,(int)(screenSize.height / PIXEL_SIZE));
         for (int f = 0; f < screenSize.width; f++){
-            UIView *pixel = [[UIView alloc] initWithFrame:CGRectMake(f,i,2,2)]; //U no run dis on a non-retina device!
+            UIView *pixel = [[UIView alloc] initWithFrame:CGRectMake(f * PIXEL_SIZE,i * PIXEL_SIZE,2 * PIXEL_SIZE,2 * PIXEL_SIZE)]; //U no run dis on a non-retina device!
             
             CGFloat hue = ( arc4random() % 256 / 256.0 );  //  0.0 to 1.0
             CGFloat saturation = ( arc4random() % 128 / 256.0 ) + 0.5;  //  0.5 to 1.0, away from white
